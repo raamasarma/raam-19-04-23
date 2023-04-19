@@ -18,7 +18,6 @@ public class prodType {
     @Id
     @GeneratedValue
     private int id;
-
     private String pTypeCode;
     private String pTypeName;
     private String document;

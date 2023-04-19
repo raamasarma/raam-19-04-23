@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title></title>
+    <style>
+    #recDate{
+  width:300px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  input#quantity{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+input#fatP{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+input#snfP{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  #milkType{
+  width:100px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+  #supplierName{
+  width:300px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  }
+   #VehileNo{
+  width:300px;
+  border:1px solid blue;
+  border-radius:2px
+  outline:0;
+  padding:2px;
+  background-colour:#fff;
+  text-align: center;
+  }
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top:-6px;
+}
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+}
+    </style>
+    <div th:replace="fragments/navbar :: navbar_html"></div>
+    <div class="container">
+        <div th:replace="fragments/message :: message_html"></div>
+    </div>
+</head>
+<body style="background-color:Blonde;">
+<div class="container">
+            <h1 class="text-center"> Create Purchase Order </h1>
+    </font></h4>
+    <hr>
+                <form th:action="@{/purchase}" th:object="${purchase}" method="POST">
+                        <div class="row auto-align">
+                        <div class="col">
+                            <label for="invDate">InvoiceDate</label>
+                            <input id="invDate" name="invDate" class="form-control" type="date" th:min="${dateTime}" placeholder="dd/mm/yyyy">
+                        </div>
+                        <div class="col">
+                            <label for="supplierName">supplierName</label>
+                            <select id="supplierName" class="form-control" name="supplierName">
+                                <option> --- Select Supplier Name ---</option>
+                                <option th:each="i : ${supplier}" th:value="${i.supplierCode}"><span th:text="${i.supplierName}"></span> - <span
+                                        th:text="${i.supplierCode}"></span></option>
+                            </select>
+                        </div>
+<!--                            <div class="col-3">-->
+<!--                                <label>VehicleNo</label>-->
+<!--                                <select id="vehicleNo" class="form-control" name="vehicleNo" autocomplete="on">-->
+<!--                                    <option> -&#45;&#45; Select Vehicle Number -&#45;&#45;</option>-->
+<!--                                    <option th:each="i : ${vehicleNo}" th:value="${i.vehicleNo}"><span th:text="${i.vehicleNo}"></span></option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-2">
+                        <label>Quantity In KG's</label>
+                        <input
+                                type="text"
+                                name="quantity"
+                                th:field="*{quantity}"
+                                class="form-control"
+                        />
+                    </div>
+                    <div class="col-2">
+                        <label>Fat</label>
+                        <input
+                                type="text"
+                                name="fatP"
+                                th:field="*{fatP}"
+                                class="form-control"
+                        />
+                    </div>
+                    <div class="col-2">
+                        <label>Snf</label>
+                        <input
+                                type="text"
+                                name="snfP"
+                                th:field="*{snfP}"
+                                class="form-control"
+                        />
+                    </div>
+                    <div class="col-2">
+                        <label>TsRate</label>
+                        <input
+                                type="text"
+                                name="tsRate"
+                                th:field="*{tsRate}"
+                                class="form-control"
+                        />
+                    </div>
+                    <div class="col-2">
+                        <label for="milkType">Milk Type</label>
+                        <select id="milkType" class="form-control" name="milkType" >
+                            <option>CM</option>
+                            <option>BM</option>
+                        </select>
+                    </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="paymentStatus">Payment Status</label>
+                            <select id="paymentStatus" class="form-control" name="paymentStatus" >
+                                <option>Received</option>
+                                <option>Pending</option>
+                                <option>Invoice Not Sent </option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <label for="bankName">Bank Name</label>
+                            <select id="bankName" class="form-control" name="bankName" >
+                                <option>HDFC</option>
+                                <option>Federal Bank</option>
+                                <option>State Bank of India </option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+
+<!--                        <button id="addPurchase" class="btn btn-primary">Add Purchase</button>-->
+<!--            <button id="submit" class="btn btn-primary">Submit</button>-->
+                    <div>
+                        <input type="submit" id="addPurchase"name="addPurchase" value="Add Purchase"/>
+                    </div>
+
+                    <br>
+                    <div class="container">
+                        <table class="table" id="purchaseTable">
+                            <thead>
+                            <tr>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Fat</th>
+                                <th scope="col">Snf</th>
+                                <th scope="col">tsRate</th>
+                                <th scope="col">Milk Type</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+
+</div>
+</body>
+<script>
+$('#submit').click(function() {
+//alert($("#recDate").val());
+//alert($("#supplierName").val());
+//alert($("#vehicleNo").val());
+//alert($("#snfP").val());
+//alert($("#fatP").val());
+//alert($("#quantity").val());
+//alert($("#tsRate").val());
+//alert($("#milkType").val());
+//alert($("#paymentStatus").val());
+//
+alert($("#bankName").val());
+var invDate = $("#invDate").val();
+var supplierName=$("#supplierName").val();
+var vehicleNo= $("#vehicleNo").val();
+var snfP = $("#snfP").val();
+var fatP= $("#fatP").val();
+var quantity=$("#quantity").val();
+var tsRate= $("#tsRate").val();
+var milkType= $("#milkType").val();
+var paymentStatus= $("#paymentStatus").val();
+var bankName =$("#bankName").val();
+$.ajax({
+'async': false,
+ type: 'POST',
+url: '/purchase',
+
+        data: {
+                "supplier":supplier,
+                "invDate": invDate,
+               "vehicleNo":vehicleNo,
+               "snfP":snfP,
+               "fatP":fatP,
+               "quantity":quantity,
+               "tsRate":tsRate,
+               "milkType":milkType,
+               "paymentStatus":paymentStatus,
+               "bankName":bankName
+            },
+            success: function(data) {
+alert("Data Saved Successfully !!!");
+window.location.replace ("/purchase");
+}
+});
+});
+</script>
+<script>
+$("#addPurchase").click(function() {
+// var supplierName=$("#supplierName").val();
+// var quantity=$("#quantity").val();
+ //var snfP= alert($("#snfP").val());
+//var fatP= alert($("#fatP").val());
+//var quantity= alert($("#quantity").val());
+//var tsRate= alert($("#tsRate").val());
+var milkType= alert($("#milkType").val());
+$("#purchaseTable").append('<tr><td>'+quantity+'</td><td>'+supplierName+'</td><td>'+snfP+'</td><td>'+ fatP+'</td><td>'+quantity+'</td><td>'+tsRate+'</td><td>'+milkType+'</td></tr>');
+      });
+</script>
+</html>

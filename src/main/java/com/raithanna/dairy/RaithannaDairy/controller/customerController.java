@@ -1,5 +1,7 @@
 package com.raithanna.dairy.RaithannaDairy.controller;
 
+
+
 import com.raithanna.dairy.RaithannaDairy.models.customer;
 import com.raithanna.dairy.RaithannaDairy.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ public class customerController {
 
     @PostMapping("/customers")
     public String saveCustomer(Model model, customer Customer) {
+        //customer maxCustomer =  customerService.getMaxOrderNo();
         customer custWithMaxCustno = customerRepository.findTopByOrderByCustnoDesc();
         Integer maxCust_no = 80;
         if (custWithMaxCustno != null) {
@@ -42,21 +45,20 @@ public class customerController {
         Customer.setCode("RDML00" + (maxCust_no));
         System.out.println(Customer);
         customerRepository.save(Customer);
-        return "redirect:/";
+        customer cm = new customer();
+        model.addAttribute("Custome", cm);
+        return "Custome";
     }
 
-
-
     @RequestMapping("/customerEdit")
-    public String createOrder_html(Model model, HttpSession session){
-        if (session.getAttribute("loggedIn").equals("yes")){
-            Iterable<customer> CustomersIterable = customerRepository.findAll();
+    public String createOrder_html(Model model, HttpSession session) {
+        if (session.getAttribute("loggedIn").equals("yes")) {
+
+            Iterable<customer> CustomersIterable = customerRepository.findByOrderByIdDesc();
             List<customer> Customers = new ArrayList<>();
             for (customer Customer : CustomersIterable) {
                 Customers.add(Customer);
             }
-
-
             model.addAttribute("customers", Customers);
             return "customerEdit";
         }
@@ -68,8 +70,8 @@ public class customerController {
 
     //getcustvalue i.e name,phonenumber,email
     @PostMapping("/getCustValues")
-    public ResponseEntity<?> getCustValues(@RequestParam Map<String,String> body){
-        Map<String,String> respBody = new HashMap<>();
+    public ResponseEntity<?> getCustValues(@RequestParam Map<String, String> body) {
+        Map<String, String> respBody = new HashMap<>();
         System.out.println(body);
         customer Customer = customerRepository.findByCode(body.get("code"));
         respBody.putIfAbsent("name", Customer.getName());
@@ -77,9 +79,10 @@ public class customerController {
         respBody.putIfAbsent("Email", Customer.getEmail());
         return ResponseEntity.ok(respBody);
     }
+
     @PostMapping("/customerEdit")
-    public ResponseEntity<?> customerEdit(@RequestParam Map<String,String> body){
-        Map<String,String> respBody = new HashMap<>();
+    public ResponseEntity<?> customerEdit(@RequestParam Map<String, String> body) {
+        Map<String, String> respBody = new HashMap<>();
         System.out.println(body);
         customer Customer = customerRepository.findByCode(body.get("code"));
         Customer.setName(body.get("name"));

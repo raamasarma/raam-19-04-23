@@ -7,11 +7,18 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface CustomerRepository extends CrudRepository<customer,Integer> {
+public interface CustomerRepository extends CrudRepository<customer, Integer> {
     @Query("select * from customer where code=?1 ")
     customer findByCode(String code);
 
     customer findTopByOrderByCustnoDesc();
+    //@Query("select * from customer  order by id desc")
+
+
+    // List<customer> findAllById();
+
+
+    List<customer> findByOrderByIdDesc();
 
 }
 

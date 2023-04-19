@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -20,19 +21,22 @@ public class saleOrder {
     @Id
     @GeneratedValue
     private Integer id;
-
     private String branch;
     private String custCode;
+    private String name;
+    private LocalDate date;
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime date;
+    private LocalDate createDate;
     private String shift;
-    private int orderNo;
-    private double disc;
+    private Integer orderNo;
+
+    private Double disc;
     private double comm;
-    private double amount;
+
+    private Double amount;
     private double unitRate;
-    private double netAmount;
+    private Double netAmount;
     private double OsAmount;
     private double WAmount;
     private String remove;
@@ -47,5 +51,10 @@ public class saleOrder {
     private Date recDate;
     private String customerName;
     private String sourcedata;
+
+    private String totAmount;
+    private String totDisc;
+    private String totNetAmount;
+
 
 }
